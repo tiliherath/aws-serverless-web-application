@@ -1,1 +1,56 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AWS Serverless Task Manager</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>AWS Serverless Task Manager</h1>
+
+        <p class="subtitle">
+            S3 + CloudFront + API Gateway + Lambda + DynamoDB
+        </p>
+
+        <section class="task-form">
+
+            <input
+                type="text"
+                id="taskTitle"
+                placeholder="Enter a task"
+            >
+
+            <button onclick="addTask()">
+                Add Task
+            </button>
+
+        </section>
+
+        <section>
+
+            <h2>Tasks</h2>
+
+            <div id="tasks">
+                Loading tasks...
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
+```
 
