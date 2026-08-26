@@ -1,4 +1,3 @@
-```javascript
 // API Gateway endpoint for the serverless backend.
 const API_URL = "https://1280qpehok.execute-api.us-east-1.amazonaws.com";
 
@@ -12,7 +11,8 @@ async function loadTasks() {
 
     try {
 
-        const response = await fetch(`${API_URL}/tasks`);
+        // FIXED LINE 15: Using standard string concatenation
+        const response = await fetch(API_URL + "/tasks");
 
         if (!response.ok) {
             throw new Error("Failed to load tasks");
@@ -57,16 +57,19 @@ function displayTasks(tasks) {
 
         taskElement.className = "task";
 
-        taskElement.innerHTML = `
-            <span>${escapeHtml(task.title)}</span>
+        // FIXED: Replaced inline string template with safe DOM nodes to avoid backtick crashes
+        const span = document.createElement("span");
+        span.textContent = task.title;
 
-            <button
-                class="delete-button"
-                onclick="deleteTask('${task.taskId}')">
-                Delete
-            </button>
-        `;
+        const button = document.createElement("button");
+        button.className = "delete-button";
+        button.textContent = "Delete";
+        button.onclick = function() {
+            deleteTask(task.taskId || task.id);
+        };
 
+        taskElement.appendChild(span);
+        taskElement.appendChild(button);
         tasksContainer.appendChild(taskElement);
     });
 }
@@ -89,8 +92,9 @@ async function addTask() {
 
     try {
 
+        // FIXED: Using standard string concatenation
         const response = await fetch(
-            `${API_URL}/tasks`,
+            API_URL + "/tasks",
             {
                 method: "POST",
 
@@ -128,8 +132,9 @@ async function deleteTask(taskId) {
 
     try {
 
+        // FIXED: Using standard string concatenation
         const response = await fetch(
-            `${API_URL}/tasks`,
+            API_URL + "/tasks",
             {
                 method: "DELETE",
 
@@ -179,5 +184,5 @@ document.addEventListener(
     "DOMContentLoaded",
     loadTasks
 );
-```
+
 
